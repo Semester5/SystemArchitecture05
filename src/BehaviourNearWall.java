@@ -1,12 +1,23 @@
-public class BehaviourNearWall implements IBehaviour {
+import com.cyberbotics.webots.controller.Accelerometer;
+import com.cyberbotics.webots.controller.Camera;
+import com.cyberbotics.webots.controller.DistanceSensor;
+
+public class BehaviourNearWall extends BaseController implements IBehaviour {
+
+    public BehaviourNearWall() {
+        super();
+    }
 
     @Override
-    public boolean isActivatable() {
+    public boolean isActivatable(Camera camera, Accelerometer accelerometer, DistanceSensor[] sensors) {
+
+
+
         return false;
     }
 
     @Override
-    public float[] calculateSpeed() {
-        return new float[0];
+    public double[] calculateSpeed() {
+        return driveLeft();
     }
 }

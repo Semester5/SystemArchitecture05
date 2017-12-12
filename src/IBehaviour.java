@@ -1,11 +1,9 @@
+import com.cyberbotics.webots.controller.Accelerometer;
+import com.cyberbotics.webots.controller.Camera;
 import com.cyberbotics.webots.controller.DifferentialWheels;
+import com.cyberbotics.webots.controller.DistanceSensor;
 
 public interface IBehaviour {
-    final int MIN_SPEED = 0; // min. motor speed
-    final int MAX_SPEED = 1000; // max. motor speed
-
-    float[] speed = new float[2];
-
-    boolean isActivatable();
-    float[] calculateSpeed();
+    boolean isActivatable(Camera camera, Accelerometer accelerometer, DistanceSensor[] sensors);
+    double[] calculateSpeed();
 }

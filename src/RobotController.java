@@ -1,29 +1,25 @@
-import com.cyberbotics.webots.controller.Camera;
-import com.cyberbotics.webots.controller.DifferentialWheels;
-import com.cyberbotics.webots.controller.DistanceSensor;
-import com.cyberbotics.webots.controller.Robot;
+import com.cyberbotics.webots.controller.*;
 
 public class RobotController extends DifferentialWheels {
 
     private static final int TIME_STEP = 15;
 
     private Camera camera;
+    private Accelerometer accelerometer;
     private DistanceSensor[] distanceSensors;
 
     public RobotController() {
         super();
 
         camera = getCamera("camera");
-        this.distanceSensors = new DistanceSensor[] {
-                getDistanceSensor("ps0"),
-                getDistanceSensor("ps7"),
-        };
+        accelerometer = getAccelerometer("accelerometer");
+        distanceSensors = new DistanceSensor[] { getDistanceSensor("ps0"), getDistanceSensor("ps7") };
 
         initSensors();
     }
 
     public void run() {
-        float[] newSpeed;
+        double[] newSpeed;
 
         BehaviourNearWall nearWall = new BehaviourNearWall();
         BehaviourMoveBallToWall moveToWall = new BehaviourMoveBallToWall();
@@ -31,23 +27,29 @@ public class RobotController extends DifferentialWheels {
 
         while (step(TIME_STEP) != -1) {
 
-            if(nearWall.isActivatable()) {
+            if(nearWall.isActivatable(camera, accelerometer, distanceSensors)) {
                 newSpeed = nearWall.calculateSpeed();
-            } else if(moveToWall.isActivatable()) {
+            } else if(moveToWall.isActivatable(camera, accelerometer, distanceSensors)) {
                 newSpeed = moveToWall.calculateSpeed();
             } else {
                 newSpeed = findBall.calculateSpeed();
             }
 
-            setSpeed((double) newSpeed[0], (double) newSpeed[1]);
+            setSpeed(newSpeed[0], newSpeed[1]);
         }
     }
 
     private void initSensors() {
         camera.enable(10);
+        accelerometer.enable(10);
 
         for (int i = 0; i < distanceSensors.length; i++) {
             distanceSensors[i].enable(10);
         }
+    }
+
+    public static void main(String[] args) {
+        RobotController robotController = new RobotController();
+        robotController.run();
     }
 }

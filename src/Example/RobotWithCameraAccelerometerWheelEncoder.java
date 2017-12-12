@@ -1,3 +1,4 @@
+package Example;
 
 import com.cyberbotics.webots.controller.Camera;
 import com.cyberbotics.webots.controller.DifferentialWheels;
@@ -5,7 +6,7 @@ import com.cyberbotics.webots.controller.DifferentialWheels;
 
 public abstract class RobotWithCameraAccelerometerWheelEncoder extends DifferentialWheels {
 	
-	public WebotsRobot(int sensorResponse) {
+	public RobotWithCameraAccelerometerWheelEncoder(int sensorResponse) {
 
 //		Camera.pixelGetRed(0);
 		
@@ -18,12 +19,12 @@ public abstract class RobotWithCameraAccelerometerWheelEncoder extends Different
 	
 	
 	protected String getCameraName() {
-		return CAMERA;
+		return "CAMERA";
 	}
 
 	
 	protected String getAccelerometerName() {
-		return ACCELEROMETER;
+		return "ACCELEROMETER";
 	}
 
 	
@@ -60,4 +61,5 @@ public abstract class RobotWithCameraAccelerometerWheelEncoder extends Different
 	
 	public double[] getEncoderValues()  {
 		return new double[] { this.getLeftEncoder(), this.getRightEncoder()};
+	}
 }

@@ -9,15 +9,12 @@ public class BehaviourNearWall extends BaseController implements IBehaviour {
     }
 
     @Override
-    public boolean isActivatable(Camera camera, Accelerometer accelerometer, DistanceSensor[] sensors) {
-
-
-
+    public boolean isActivatable(Camera camera, Accelerometer accelerometer, DistanceSensor[] distanceSensors) {
         return false;
     }
 
     @Override
-    public double[] calculateSpeed() {
+    public double[] calculateSpeed(Camera camera, Accelerometer accelerometer, DistanceSensor[] distanceSensors) {
         return driveLeft();
     }
 }

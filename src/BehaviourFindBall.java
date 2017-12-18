@@ -9,12 +9,12 @@ public class BehaviourFindBall extends BaseController implements IBehaviour {
     }
 
     @Override
-    public boolean isActivatable(Camera camera, Accelerometer accelerometer, DistanceSensor[] sensors) {
+    public boolean isActivatable(Camera camera, Accelerometer accelerometer, DistanceSensor[] distanceSensors) {
         return false;
     }
 
     @Override
-    public double[] calculateSpeed() {
-        return driveLeft();
+    public double[] calculateSpeed(Camera camera, Accelerometer accelerometer, DistanceSensor[] distanceSensors) {
+        return driveRight();
     }
 }

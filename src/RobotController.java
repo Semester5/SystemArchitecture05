@@ -7,13 +7,15 @@ public class RobotController extends DifferentialWheels {
     private Camera camera;
     private Accelerometer accelerometer;
     private DistanceSensor[] distanceSensors;
+    private LightSensor[] lightSensors;
 
     public RobotController() {
         super();
 
         camera = getCamera("camera");
         accelerometer = getAccelerometer("accelerometer");
-        distanceSensors = new DistanceSensor[] { getDistanceSensor("ps0"), getDistanceSensor("ps7") };
+        distanceSensors = new DistanceSensor[] { getDistanceSensor("ps0"), getDistanceSensor("ps1"),getDistanceSensor("ps6"),getDistanceSensor("ps7") };
+        lightSensors = new LightSensor[] { getLightSensor("ls0") };
 
         initSensors();
     }
@@ -23,16 +25,27 @@ public class RobotController extends DifferentialWheels {
 
         BehaviourNearWall nearWall = new BehaviourNearWall();
         BehaviourMoveBallToWall moveToWall = new BehaviourMoveBallToWall();
+        BehaviourDriveToBall driveToBall = new BehaviourDriveToBall();
         BehaviourFindBall findBall = new BehaviourFindBall();
+        //new behaviour: fahreZumBall
 
         while (step(TIME_STEP) != -1) {
 
-            if(nearWall.isActivatable(camera, accelerometer, distanceSensors)) {
-                newSpeed = nearWall.calculateSpeed();
-            } else if(moveToWall.isActivatable(camera, accelerometer, distanceSensors)) {
-                newSpeed = moveToWall.calculateSpeed();
+            //if(nearWall.isActivatable(camera, accelerometer, distanceSensors)) {
+                //Roboter befindet sich an einer Wand
+                //newSpeed = nearWall.calculateSpeed();
+            //}
+            //if(moveToWall.isActivatable(camera, accelerometer, distanceSensors)) {
+                //Roboter hat ein Ball gefunden und soll ihn an die Wand schieben
+                //newSpeed = moveToWall.calculateSpeed(camera, accelerometer, distanceSensors);
+            //} else
+
+            if(driveToBall.isActivatable(camera, accelerometer, distanceSensors)) {
+                //Roboter hat ein Ball gefunden und soll ihn an die Wand schieben
+                newSpeed = moveToWall.calculateSpeed(camera, accelerometer, distanceSensors);
             } else {
-                newSpeed = findBall.calculateSpeed();
+                //Roboter muss einen Ball finden
+                newSpeed = findBall.calculateSpeed(camera, accelerometer, distanceSensors);
             }
 
             setSpeed(newSpeed[0], newSpeed[1]);
@@ -45,6 +58,10 @@ public class RobotController extends DifferentialWheels {
 
         for (int i = 0; i < distanceSensors.length; i++) {
             distanceSensors[i].enable(10);
+        }
+
+        for (int i = 0; i < lightSensors.length; i++) {
+            lightSensors[i].enable(10);
         }
     }
 

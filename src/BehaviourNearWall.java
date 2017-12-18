@@ -10,6 +10,13 @@ public class BehaviourNearWall extends BaseController implements IBehaviour {
 
     @Override
     public boolean isActivatable(Camera camera, Accelerometer accelerometer, DistanceSensor[] distanceSensors) {
+        System.out.println("Check IsBallNearWall: " + accelerometer.getValues()[0]);
+        System.out.println("Check IsBallNearWall: " + accelerometer.getValues()[1]);
+        System.out.println("Check IsBallNearWall: " + accelerometer.getValues()[2]);
+
+        if(accelerometer.getValues()[0] < -1.0 || accelerometer.getValues()[1] < -1.0) {
+            return true;
+        }
         return false;
     }
 

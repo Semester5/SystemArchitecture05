@@ -4,7 +4,7 @@ import com.cyberbotics.webots.controller.DistanceSensor;
 
 public class BehaviourDriveToBall extends BaseController implements IBehaviour {
 
-    private static int RED_TOL = 140;
+    private static int RED_TOL = 255;
     private static int GREEN_TOL = 80;
     private static int BLUE_TOL = 80;
 
@@ -16,20 +16,31 @@ public class BehaviourDriveToBall extends BaseController implements IBehaviour {
     public boolean isActivatable(Camera camera, Accelerometer accelerometer, DistanceSensor[] distanceSensors) {
         int[] image = camera.getImage();
 
-        int red = Camera.imageGetRed(image, camera.getWidth(), camera.getWidth() / 2, camera.getHeight() / 2);
-        int blue = Camera.imageGetBlue(image, camera.getWidth(), camera.getWidth() / 2, camera.getHeight() / 2);
-        int green = Camera.imageGetGreen(image, camera.getWidth(), camera.getWidth() / 2, camera.getHeight() / 2);
+        int redCameraValue = 0;
+        int greedCameraValue = 0;
+        int blueCameraValue = 0;
 
-        System.out.println("Drive to ball: RED: " + red + " GREEN: " + green + " BLUE: " + blue);
+        for (int x = camera.getWidth()/3; x < (camera.getWidth()/3)*2; x++) {
 
-        if((red < RED_TOL) && (blue < BLUE_TOL) && (green < GREEN_TOL)) {
-            return true;
+            for (int y = camera.getHeight()/3; y < camera.getHeight()/3*2; y++) {
+
+                redCameraValue = Camera.imageGetRed(image, camera.getWidth(), x, y);
+                greedCameraValue = Camera.imageGetGreen(image, camera.getWidth(), x, y);
+                blueCameraValue = Camera.imageGetBlue(image, camera.getWidth(), x, y);
+
+                System.out.println("Check DriveToBall: RED: " + redCameraValue + " GREEN: " + greedCameraValue + " BLUE: " + blueCameraValue);
+
+                if((redCameraValue < RED_TOL) && (blueCameraValue < BLUE_TOL) && (greedCameraValue < GREEN_TOL)) {
+                    return true;
+                }
+            }
         }
         return false;
     }
 
     @Override
     public double[] calculateSpeed(Camera camera, Accelerometer accelerometer, DistanceSensor[] distanceSensors) {
+        System.out.println("DriveToBall: driveForward()");
         return driveForward();
     }
 }

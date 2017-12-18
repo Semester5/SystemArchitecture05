@@ -23,28 +23,20 @@ public class RobotController extends DifferentialWheels {
     public void run() {
         double[] newSpeed;
 
-        BehaviourNearWall nearWall = new BehaviourNearWall();
-        BehaviourMoveBallToWall moveToWall = new BehaviourMoveBallToWall();
+        BehaviourNearWall isBallNearAWall = new BehaviourNearWall();
+        BehaviourMoveBallToWall moveBallToWall = new BehaviourMoveBallToWall();
         BehaviourDriveToBall driveToBall = new BehaviourDriveToBall();
         BehaviourFindBall findBall = new BehaviourFindBall();
-        //new behaviour: fahreZumBall
 
         while (step(TIME_STEP) != -1) {
 
-            //if(nearWall.isActivatable(camera, accelerometer, distanceSensors)) {
-                //Roboter befindet sich an einer Wand
-                //newSpeed = nearWall.calculateSpeed();
-            //}
-            //if(moveToWall.isActivatable(camera, accelerometer, distanceSensors)) {
-                //Roboter hat ein Ball gefunden und soll ihn an die Wand schieben
-                //newSpeed = moveToWall.calculateSpeed(camera, accelerometer, distanceSensors);
-            //} else
-
-            if(driveToBall.isActivatable(camera, accelerometer, distanceSensors)) {
-                //Roboter hat ein Ball gefunden und soll ihn an die Wand schieben
-                newSpeed = moveToWall.calculateSpeed(camera, accelerometer, distanceSensors);
+            if(isBallNearAWall.isActivatable(camera, accelerometer, distanceSensors)) {
+                newSpeed = isBallNearAWall.calculateSpeed(camera, accelerometer, distanceSensors);
+            } else if(moveBallToWall.isActivatable(camera, accelerometer, distanceSensors)) {
+                newSpeed = moveBallToWall.calculateSpeed(camera, accelerometer, distanceSensors);
+            } else if(driveToBall.isActivatable(camera, accelerometer, distanceSensors)) {
+                newSpeed = driveToBall.calculateSpeed(camera, accelerometer, distanceSensors);
             } else {
-                //Roboter muss einen Ball finden
                 newSpeed = findBall.calculateSpeed(camera, accelerometer, distanceSensors);
             }
 

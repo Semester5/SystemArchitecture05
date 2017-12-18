@@ -23,7 +23,7 @@ public abstract class BaseController {
 
     protected double[] driveForward() {
         speed[0] = MAX_SPEED;
-        speed[1] = MIN_SPEED;
+        speed[1] = MAX_SPEED;
         return speed;
     }
 }

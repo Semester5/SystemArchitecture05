@@ -15,6 +15,7 @@ public class BehaviourFindBall extends BaseController implements IBehaviour {
 
     @Override
     public double[] calculateSpeed(Camera camera, Accelerometer accelerometer, DistanceSensor[] distanceSensors) {
+        System.out.println("FindBALL: driveRight()");
         return driveRight();
     }
 }

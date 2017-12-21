@@ -26,4 +26,10 @@ public abstract class BaseController {
         speed[1] = MAX_SPEED;
         return speed;
     }
+
+    protected double[] driveBack() {
+        speed[0] = -MAX_SPEED;
+        speed[1] = -MAX_SPEED;
+        return speed;
+    }
 }

@@ -2,9 +2,9 @@ import com.cyberbotics.webots.controller.Accelerometer;
 import com.cyberbotics.webots.controller.Camera;
 import com.cyberbotics.webots.controller.DistanceSensor;
 
-public class BehaviourFindBall extends BaseController implements IBehaviour {
+public class BehaviourRoboterHasToFindABall extends BaseController implements IBehaviour {
 
-    public BehaviourFindBall() {
+    public BehaviourRoboterHasToFindABall() {
         super();
     }
 
@@ -15,7 +15,7 @@ public class BehaviourFindBall extends BaseController implements IBehaviour {
 
     @Override
     public double[] calculateSpeed(Camera camera, Accelerometer accelerometer, DistanceSensor[] distanceSensors) {
-        System.out.println("FindBALL: driveRight()");
+        //System.out.println("FindBALL: driveRight()");
         return driveRight();
     }
 }

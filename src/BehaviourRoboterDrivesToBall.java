@@ -2,13 +2,13 @@ import com.cyberbotics.webots.controller.Accelerometer;
 import com.cyberbotics.webots.controller.Camera;
 import com.cyberbotics.webots.controller.DistanceSensor;
 
-public class BehaviourDriveToBall extends BaseController implements IBehaviour {
+public class BehaviourRoboterDrivesToBall extends BaseController implements IBehaviour {
 
     private static int RED_TOL = 255;
     private static int GREEN_TOL = 80;
     private static int BLUE_TOL = 80;
 
-    public BehaviourDriveToBall() {
+    public BehaviourRoboterDrivesToBall() {
         super();
     }
 
@@ -28,9 +28,10 @@ public class BehaviourDriveToBall extends BaseController implements IBehaviour {
                 greedCameraValue = Camera.imageGetGreen(image, camera.getWidth(), x, y);
                 blueCameraValue = Camera.imageGetBlue(image, camera.getWidth(), x, y);
 
-                System.out.println("Check DriveToBall: RED: " + redCameraValue + " GREEN: " + greedCameraValue + " BLUE: " + blueCameraValue);
+                //System.out.println("Check DriveToBall: RED: " + redCameraValue + " GREEN: " + greedCameraValue + " BLUE: " + blueCameraValue);
 
                 if((redCameraValue < RED_TOL) && (blueCameraValue < BLUE_TOL) && (greedCameraValue < GREEN_TOL)) {
+                    //System.out.println("Yeah, DriveToBall");
                     return true;
                 }
             }
@@ -40,7 +41,7 @@ public class BehaviourDriveToBall extends BaseController implements IBehaviour {
 
     @Override
     public double[] calculateSpeed(Camera camera, Accelerometer accelerometer, DistanceSensor[] distanceSensors) {
-        System.out.println("DriveToBall: driveForward()");
+        //System.out.println("DriveToBall: driveForward()");
         return driveForward();
     }
 }

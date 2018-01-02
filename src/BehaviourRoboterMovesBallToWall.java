@@ -16,9 +16,7 @@ public class BehaviourRoboterMovesBallToWall extends BaseController implements I
     public boolean isActivatable(Camera camera, Accelerometer accelerometer, DistanceSensor[] distanceSensors) {
 
         for(int i = 0; i < distanceSensors.length; i++) {
-            //System.out.println("Check MoveBallToWall: DistanceSensorValue " + i + " = " + distanceSensors[i].getValue());
             if(distanceSensors[i].getValue() > MIN_DISTANCE_VALUE_TO_FIND_BALL) {
-                //System.out.println("Yeah, MoveBallToWall");
                 return true;
             }
         }
@@ -28,13 +26,10 @@ public class BehaviourRoboterMovesBallToWall extends BaseController implements I
     @Override
     public double[] calculateSpeed(Camera camera, Accelerometer accelerometer, DistanceSensor[] distanceSensors) {
         if (distanceSensors[D_FRONT_RIGHT].getValue() > distanceSensors[D_FRONT_LEFT].getValue()) {
-            //System.out.println("MoveBallToWall: driveRight: RIGHTSENSOR: " + distanceSensors[D_FRONT_RIGHT].getValue() + "  LEFTSENSOR: " + distanceSensors[D_FRONT_LEFT].getValue());
             return driveRight();
         } else if (distanceSensors[D_FRONT_RIGHT].getValue() < distanceSensors[D_FRONT_LEFT].getValue()) {
-            //System.out.println("MoveBallToWall: driveLeft: RIGHTSENSOR: " + distanceSensors[D_FRONT_RIGHT].getValue() + "  LEFTSENSOR: " + distanceSensors[D_FRONT_LEFT].getValue());
             return driveLeft();
         }
-        //System.out.println("MoveBallToWall: DRIVEFORWARD: RIGHTSENSOR: " + distanceSensors[D_FRONT_RIGHT].getValue() + "  LEFTSENSOR: " + distanceSensors[D_FRONT_LEFT].getValue());
         return driveForward();
     }
 }

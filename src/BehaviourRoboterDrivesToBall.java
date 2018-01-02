@@ -21,17 +21,13 @@ public class BehaviourRoboterDrivesToBall extends BaseController implements IBeh
         int blueCameraValue = 0;
 
         for (int x = camera.getWidth()/3; x < (camera.getWidth()/3)*2; x++) {
-
             for (int y = camera.getHeight()/3; y < camera.getHeight()/3*2; y++) {
 
                 redCameraValue = Camera.imageGetRed(image, camera.getWidth(), x, y);
                 greedCameraValue = Camera.imageGetGreen(image, camera.getWidth(), x, y);
                 blueCameraValue = Camera.imageGetBlue(image, camera.getWidth(), x, y);
 
-                //System.out.println("Check DriveToBall: RED: " + redCameraValue + " GREEN: " + greedCameraValue + " BLUE: " + blueCameraValue);
-
                 if((redCameraValue < RED_TOL) && (blueCameraValue < BLUE_TOL) && (greedCameraValue < GREEN_TOL)) {
-                    //System.out.println("Yeah, DriveToBall");
                     return true;
                 }
             }
@@ -41,7 +37,6 @@ public class BehaviourRoboterDrivesToBall extends BaseController implements IBeh
 
     @Override
     public double[] calculateSpeed(Camera camera, Accelerometer accelerometer, DistanceSensor[] distanceSensors) {
-        //System.out.println("DriveToBall: driveForward()");
         return driveForward();
     }
 }

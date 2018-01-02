@@ -13,18 +13,20 @@ public class BehaviourRoboterAndBallAreNearAWall extends BaseController implemen
 
     @Override
     public boolean isActivatable(Camera camera, Accelerometer accelerometer, DistanceSensor[] distanceSensors) {
-
-        System.out.println("Check IsBallNearWall: " + accelerometer.getValues()[0]);
-        System.out.println("Check IsBallNearWall: " + accelerometer.getValues()[1]);
-        System.out.println("Check IsBallNearWall: " + accelerometer.getValues()[2]);
-
         if(stepCounter == MAX_STEP_COUNTER) {
             stepCounter = 0;
             return false;
         }
 
-        if((accelerometer.getValues()[0] < -3.0 || accelerometer.getValues()[1] < -3.0) || (stepCounter > 0 && stepCounter < MAX_STEP_COUNTER)) {
-            System.out.println("Yeah, Ball is near the wall");
+        if((accelerometer.getValues()[0] < -1.0 || accelerometer.getValues()[1] < -1.0) || (stepCounter > 0 && stepCounter < MAX_STEP_COUNTER)) {
+            System.out.println("Activate RoboterAndBallAreNearAWall: " + accelerometer.getValues()[0]);
+            System.out.println("Activate RoboterAndBallAreNearAWall:  " + accelerometer.getValues()[1]);
+            System.out.println("Activate RoboterAndBallAreNearAWall: " + accelerometer.getValues()[2]);
+            try {
+                Thread.sleep(4000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             return true;
         }
         return false;
@@ -33,12 +35,10 @@ public class BehaviourRoboterAndBallAreNearAWall extends BaseController implemen
     @Override
     public double[] calculateSpeed(Camera camera, Accelerometer accelerometer, DistanceSensor[] distanceSensors) {
         stepCounter++;
-        if(stepCounter < 90) {
+
+        if(stepCounter <= 90) {
             return driveBack();
         }
-        if(stepCounter == 100) {
-            stepCounter = 0;
-        }
-        return driveLeft();
+        return driveRight();
     }
 }

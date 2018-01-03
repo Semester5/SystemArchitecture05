@@ -9,6 +9,11 @@ public abstract class BaseController {
         this.speed = new double[2];
     }
 
+    protected double[] standStill() {
+        speed[0] = 0;
+        speed[1] = 0;
+        return speed;
+    }
 
     protected double[] rotate() {
         speed[0] = MAX_SPEED;
@@ -16,14 +21,14 @@ public abstract class BaseController {
         return speed;
     }
 
-    protected double[] driveRight() {
+    protected double[] driveRight(double rotationFactor) {
         speed[0] = MAX_SPEED;
-        speed[1] = MIN_SPEED;
+        speed[1] = MAX_SPEED * rotationFactor;
         return speed;
     }
 
-    protected double[] driveLeft() {
-        speed[0] = MIN_SPEED;
+    protected double[] driveLeft(double rotationFactor) {
+        speed[0] = MAX_SPEED * rotationFactor;
         speed[1] = MAX_SPEED;
         return speed;
     }

@@ -15,6 +15,6 @@ public class BehaviourRoboterSearchBall extends BaseController implements IBehav
 
     @Override
     public double[] calculateSpeed(Camera camera, Accelerometer accelerometer, DistanceSensor[] distanceSensors) {
-        return driveRight();
+        return driveRight(2/3);
     }
 }

@@ -26,9 +26,9 @@ public class BehaviourRoboterMovesBallToWall extends BaseController implements I
     @Override
     public double[] calculateSpeed(Camera camera, Accelerometer accelerometer, DistanceSensor[] distanceSensors) {
         if (distanceSensors[D_FRONT_RIGHT].getValue() > distanceSensors[D_FRONT_LEFT].getValue()) {
-            return driveRight();
+            return driveRight(0.9);
         } else if (distanceSensors[D_FRONT_RIGHT].getValue() < distanceSensors[D_FRONT_LEFT].getValue()) {
-            return driveLeft();
+            return driveLeft(0.9);
         }
         return driveForward();
     }

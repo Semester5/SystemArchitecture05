@@ -3,9 +3,7 @@ import com.cyberbotics.webots.controller.Camera;
 import com.cyberbotics.webots.controller.DistanceSensor;
 
 public class BehaviourRoboterAndBallAreNearAWall extends BaseController implements IBehaviour {
-    private final int MAX_STEP_COUNTER = 100;
-
-    private int stepCounter = 0;
+    private final int MIN_DISTANCE_VALUE_TO_FIND_BALL = 1000;
 
     public BehaviourRoboterAndBallAreNearAWall() {
         super();
@@ -13,32 +11,27 @@ public class BehaviourRoboterAndBallAreNearAWall extends BaseController implemen
 
     @Override
     public boolean isActivatable(Camera camera, Accelerometer accelerometer, DistanceSensor[] distanceSensors) {
-        if(stepCounter == MAX_STEP_COUNTER) {
-            stepCounter = 0;
-            return false;
+        boolean checkDistanceSensors = false;
+        for(int i = 0; i < distanceSensors.length; i++) {
+            if(distanceSensors[i].getValue() > MIN_DISTANCE_VALUE_TO_FIND_BALL) {
+                checkDistanceSensors = true;
+                break;
+            }
         }
 
-        if((accelerometer.getValues()[0] < -1.0 || accelerometer.getValues()[1] < -1.0) || (stepCounter > 0 && stepCounter < MAX_STEP_COUNTER)) {
-            System.out.println("Activate RoboterAndBallAreNearAWall: " + accelerometer.getValues()[0]);
-            System.out.println("Activate RoboterAndBallAreNearAWall:  " + accelerometer.getValues()[1]);
-            System.out.println("Activate RoboterAndBallAreNearAWall: " + accelerometer.getValues()[2]);
-            try {
-                Thread.sleep(4000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        if((accelerometer.getValues()[0] < -1.0 || accelerometer.getValues()[1] < -1.0)) {
+            if(checkDistanceSensors) {
+                System.out.printf("RoboterAndBallAreNearAWall is activated: %.5f / %.5f / %.5f", accelerometer.getValues()[0],  accelerometer.getValues()[1],  accelerometer.getValues()[2]);
+                return true;
+            } else {
+                System.out.printf("RoboterAndBallAreNearAWall is NOT activated: %.5f / %.5f / %.5f", accelerometer.getValues()[0],  accelerometer.getValues()[1],  accelerometer.getValues()[2]);
             }
-            return true;
         }
         return false;
     }
 
     @Override
     public double[] calculateSpeed(Camera camera, Accelerometer accelerometer, DistanceSensor[] distanceSensors) {
-        stepCounter++;
-
-        if(stepCounter <= 90) {
-            return driveBack();
-        }
         return driveRight();
     }
 }

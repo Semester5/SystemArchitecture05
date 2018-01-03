@@ -9,6 +9,13 @@ public abstract class BaseController {
         this.speed = new double[2];
     }
 
+
+    protected double[] rotate() {
+        speed[0] = MAX_SPEED;
+        speed[1] = -MAX_SPEED;
+        return speed;
+    }
+
     protected double[] driveRight() {
         speed[0] = MAX_SPEED;
         speed[1] = MIN_SPEED;

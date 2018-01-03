@@ -2,9 +2,9 @@ import com.cyberbotics.webots.controller.Accelerometer;
 import com.cyberbotics.webots.controller.Camera;
 import com.cyberbotics.webots.controller.DistanceSensor;
 
-public class BehaviourRoboterHasToFindABall extends BaseController implements IBehaviour {
+public class BehaviourRoboterSearchBall extends BaseController implements IBehaviour {
 
-    public BehaviourRoboterHasToFindABall() {
+    public BehaviourRoboterSearchBall() {
         super();
     }
 

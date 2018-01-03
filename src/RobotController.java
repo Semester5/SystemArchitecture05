@@ -25,7 +25,7 @@ public class RobotController extends DifferentialWheels {
         BehaviourRoboterAndBallAreNearAWall roboterAndBallAreNearAWall = new BehaviourRoboterAndBallAreNearAWall();
         BehaviourRoboterMovesBallToWall roboterMovesBallToWall = new BehaviourRoboterMovesBallToWall();
         BehaviourRoboterDrivesToBall roboterDrivesToBall = new BehaviourRoboterDrivesToBall();
-        BehaviourRoboterHasToFindABall roboterHasToFindABall = new BehaviourRoboterHasToFindABall();
+        BehaviourRoboterSearchBall roboterHasToFindABall = new BehaviourRoboterSearchBall();
 
         while (step(TIME_STEP) != -1) {
             if(roboterAndBallAreNearAWall.isActivatable(camera, accelerometer, distanceSensors)) {

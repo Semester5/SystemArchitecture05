@@ -4,10 +4,6 @@ import com.cyberbotics.webots.controller.DistanceSensor;
 
 public class BehaviourRoboterDrivesToBall extends BaseController implements IBehaviour {
 
-    private static int RED_TOL = 10;
-    private static int GREEN_TOL = 10;
-    private static int BLUE_TOL = 10;
-
     public BehaviourRoboterDrivesToBall() {
         super();
     }
@@ -65,20 +61,6 @@ public class BehaviourRoboterDrivesToBall extends BaseController implements IBeh
 
         int diff = Math.abs(xLeft - xRight);
         return diff <= 5;
-    }
-
-    private boolean detectBall(int[] image, int cameraWidth, int cameraHeight, int x) {
-        for (int y = cameraHeight/3; y < cameraHeight/3*2; y++) {
-
-            int redCameraValue = Camera.imageGetRed(image, cameraWidth, x, y);
-            int greedCameraValue = Camera.imageGetGreen(image, cameraWidth, x, y);
-            int blueCameraValue = Camera.imageGetBlue(image, cameraWidth, x, y);
-
-            if((redCameraValue > RED_TOL) && (blueCameraValue < BLUE_TOL) && (greedCameraValue < GREEN_TOL)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     @Override

@@ -10,11 +10,11 @@ public class BehaviourRoboterSearchBall extends BaseController implements IBehav
 
     @Override
     public boolean isActivatable(Camera camera, Accelerometer accelerometer, DistanceSensor[] distanceSensors) {
-        return false;
+        return true;
     }
 
     @Override
     public double[] calculateSpeed(Camera camera, Accelerometer accelerometer, DistanceSensor[] distanceSensors) {
-        return driveRight(2/3);
+        return driveRight(0.333);
     }
 }

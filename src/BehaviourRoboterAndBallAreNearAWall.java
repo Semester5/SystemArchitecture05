@@ -105,6 +105,6 @@ public class BehaviourRoboterAndBallAreNearAWall extends BaseController implemen
         if (returnCycleCount < 15) {
             return driveRight(0.5);
         }
-        return driveBack(returnMoveCount > returnCycleCount ? 0.025 : 0);
+        return driveBack(returnMoveCount > returnCycleCount ? 0.05 : 0);
     }
 }
